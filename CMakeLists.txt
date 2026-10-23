@@ -8,10 +8,15 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
+add_compile_options(-Wall -Wextra)
+
 find_package(Threads REQUIRED)
 
 # 核心层：接口契约 + 数据模型 + MonitorHub（不链接 FTXUI、不链接 dl）
 add_subdirectory(src/core)
+
+# 采集层：只读 procfs/sysfs/NVML(dlopen)，链接 hw_core 与 dl
+add_subdirectory(src/collectors)
 
 enable_testing()
 add_subdirectory(test)
