@@ -132,6 +132,7 @@ struct DiskBlock {                       // 块设备行
     uint64_t    rSectors = 0, wSectors = 0;   // /proc/diskstats 原始扇区计数（hub 差分用，×512=字节）
 };
 struct DiskMount {                       // 挂载点行
+    std::string dev;                     // 挂载来源设备名（如 "nvme0n1p2"）；无 /dev/ 来源为空（tui 层扩展）
     std::string mount, fs;               // 如 "/", "ext4"
     Gauge       usage;                   // statvfs：used KiB / total KiB
 };

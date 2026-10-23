@@ -180,6 +180,7 @@ DiskSample DiskCollector::sample() {
         // —— 挂载点视图 ——
         for (const MountEntry& m : mounts) {
             DiskMount dm;
+            dm.dev = basenameOfDev(m.dev);  // 来源设备名，供 UI 与块设备前缀匹配
             dm.mount = m.mount;
             dm.fs = m.fs;
             if (const auto u = statFsKiB(m.mount)) {

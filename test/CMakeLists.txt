@@ -27,3 +27,16 @@ add_test(NAME collectors COMMAND hw_unit_tests)
 # 真机冒烟工具：读本机 /proc、/sys 实时数据，人工验收（不入 ctest）
 add_executable(collectors_smoke smoke_collectors.cpp)
 target_link_libraries(collectors_smoke PRIVATE hw_collectors)
+
+# —— TUI 无头渲染自检：Element → ftxui::Screen，校验内容与留白/降级路径（03-tui）——
+add_executable(hw_tui_render_check
+    render_check.cpp
+)
+target_link_libraries(hw_tui_render_check PRIVATE hw_tui)
+add_test(NAME tui_render COMMAND hw_tui_render_check)
+
+# —— TUI 演示：假采集器驱动全链路（真实终端手动体验，不入 ctest）——
+add_executable(hw_tui_demo
+    demo_main.cpp
+)
+target_link_libraries(hw_tui_demo PRIVATE hw_tui ftxui::component)
